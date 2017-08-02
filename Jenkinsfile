@@ -10,7 +10,7 @@ pipeline {
     agent any
     environment {
         // You need to specify 4 required environment variables first, they are going to be used for the following IBM Cloud DevOps steps
-        IBM_CLOUD_DEVOPS_CREDS = credentials('BLUEMIX_CREDENTIAL_ID')
+        IBM_CLOUD_DEVOPS_CREDS = credentials('BLUEMIX_CREDENTIAL_ID_PLACEHOLDER')
         IBM_CLOUD_DEVOPS_ORG = 'ORG_NAME_PLACEHOLDER'
         IBM_CLOUD_DEVOPS_APP_NAME = 'APP_NAME_PLACEHOLDER'
         IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = 'TOOLCHAIN_ID_PLACEHOLDER'
