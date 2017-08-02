@@ -14,18 +14,12 @@ pipeline {
         IBM_CLOUD_DEVOPS_ORG = 'ORG_NAME_PLACEHOLDER'
         IBM_CLOUD_DEVOPS_APP_NAME = 'APP_NAME_PLACEHOLDER'
         IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = 'TOOLCHAIN_ID_PLACEHOLDER'
-        GIT_REPO = 'https://github.com/open-toolchain/DemoDRA'
+        GIT_REPO = 'GIT_REPO_PLACEHOLDER'
     }
     tools {
         nodejs 'recent' // your nodeJS installation name in Jenkins
     }
     stages {
-        stage('SCM') {
-            steps {
-                deleteDir()
-                git "${GIT_REPO}"
-            }
-        }
         stage('Build') {
             environment {
                 // get git commit from Jenkins
