@@ -2,10 +2,10 @@ pipeline {
     agent any
     environment {
             // You need to specify 4 required environment variables first, they are going to be used for the following IBM Cloud DevOps steps
-            IBM_CLOUD_DEVOPS_API_KEY = credentials('api_key_dev')
+            IBM_CLOUD_DEVOPS_API_KEY = credentials('api_key')
             IBM_CLOUD_DEVOPS_ORG = 'xunrong li/ibm'
             IBM_CLOUD_DEVOPS_APP_NAME = 'test-slash'
-            IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = '50d4ee75-4d2d-4f0d-86e5-92db54dec5d1'
+            IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = '5359cf1a-9b7d-4650-9556-02cba218ab37'
         }
     tools {
         nodejs 'recent'
