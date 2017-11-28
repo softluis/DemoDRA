@@ -5,7 +5,7 @@
 // art(artifactory, 'omaas-staging')
 // cloudTools('cloudtools-git-id','./servicemanifest.json')
 
-node('cem_slave') {
+node {
     def version         = "1.0.4"
     def buildClassifier = env.BUILD_TIMESTAMP.replaceAll(/[ :-]/,'')
     def pipelineName    = env.JOB_NAME?.split('/')[0]
