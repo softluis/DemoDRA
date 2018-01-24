@@ -14,7 +14,6 @@ pipeline {
         IBM_CLOUD_DEVOPS_ORG = 'ORG_NAME_PLACEHOLDER'
         IBM_CLOUD_DEVOPS_APP_NAME = 'APP_NAME_PLACEHOLDER'
         IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = 'TOOLCHAIN_ID_PLACEHOLDER'
-        GIT_REPO = 'GIT_REPO_PLACEHOLDER'
     }
     stages {
         stage('Build') {
@@ -22,6 +21,7 @@ pipeline {
                 // get git commit from Jenkins
                 GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 GIT_BRANCH = 'master'
+                GIT_REPO = 'GIT_REPO_PLACEHOLDER'
             }
             steps {
                 echo "building"
