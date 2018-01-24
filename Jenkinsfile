@@ -56,10 +56,10 @@ pipeline {
             // post build section to use "publishDeployRecord" method to publish deploy record
             post {
                 success {
-                    publishDeployRecord environment: "STAGING", result:"SUCCESS"
+                    publishDeployRecord environment: "STAGING", result:"SUCCESS", appUrl:""
                 }
                 failure {
-                    publishDeployRecord environment: "STAGING", result:"FAIL"
+                    publishDeployRecord environment: "STAGING", result:"FAIL", appUrl: ""
                 }
             }
         }
@@ -77,10 +77,10 @@ pipeline {
             // post build section to use "publishDeployRecord" method to publish deploy record
             post {
                 success {
-                    publishDeployRecord environment: "PRODUCTION", result:"SUCCESS"
+                    publishDeployRecord environment: "PRODUCTION", result:"SUCCESS", appUrl: ""
                 }
                 failure {
-                    publishDeployRecord environment: "PRODUCTION", result:"FAIL"
+                    publishDeployRecord environment: "PRODUCTION", result:"FAIL", appUrl: ""
                 }
             }
         }
