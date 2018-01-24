@@ -50,11 +50,8 @@ pipeline {
         }
         stage('Deploy to Staging') {
             steps {
-                // Push the Weather App to Bluemix, staging space
-                sh '''
-                        echo "Deploying App to Staging"
-
-                    '''
+                // Push the Weather App to Bluemix, staging space                
+                echo "Deploying App to Staging"
             }
             // post build section to use "publishDeployRecord" method to publish deploy record
             post {
@@ -75,9 +72,7 @@ pipeline {
         stage('Deploy to Prod') {
             steps {
                 // Push the Weather App to Bluemix, production space
-                sh '''
-                        echo "Deploying to Prod"
-                    '''
+                echo "Deploying to Prod"                 
             }
             // post build section to use "publishDeployRecord" method to publish deploy record
             post {
