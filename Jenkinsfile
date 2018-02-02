@@ -10,14 +10,10 @@ pipeline {
     agent any
     environment {
         // You need to specify 4 required environment variables first, they are going to be used for the following IBM Cloud DevOps steps
-        IBM_CLOUD_DEVOPS_CREDS = credentials('BLUEMIX_CREDENTIAL_ID_PLACEHOLDER')
+        IBM_CLOUD_DEVOPS_API_KEY = credentials('BLUEMIX_CREDENTIAL_ID_PLACEHOLDER')
         IBM_CLOUD_DEVOPS_ORG = 'ORG_NAME_PLACEHOLDER'
-        IBM_CLOUD_DEVOPS_APP_NAME = 'APP_NAME_PLACEHOLDER'
+        IBM_CLOUD_DEVOPS_APP_NAME = 'DevOps-Insight-Sample-App'
         IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = 'TOOLCHAIN_ID_PLACEHOLDER'
-        GIT_REPO = 'GIT_REPO_PLACEHOLDER'
-    }
-    tools {
-        nodejs 'recent' // your nodeJS installation name in Jenkins
     }
     stages {
         stage('Build') {
@@ -25,11 +21,10 @@ pipeline {
                 // get git commit from Jenkins
                 GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
                 GIT_BRANCH = 'master'
+                GIT_REPO = 'https://github.com/xunrongli-ibm/DemoDRA/'
             }
             steps {
-                sh 'npm --version'
-                sh 'npm install'
-                sh 'grunt dev-setup --no-color'
+                echo "building"
             }
             // post build section to use "publishBuildRecord" method to publish build record
             post {
@@ -43,7 +38,7 @@ pipeline {
         }
         stage('Unit Test and Code Coverage') {
             steps {
-                sh 'grunt dev-test-cov --no-color -f'
+                echo "unit testing and code coverage"
             }
             // post build section to use "publishTestResult" method to publish test result
             post {
@@ -61,13 +56,13 @@ pipeline {
 
                     '''
             }
-            // post build section to use "publishDeployRecord" method to publish deploy record and notify OTC of stage status
+            // post build section to use "publishDeployRecord" method to publish deploy record
             post {
                 success {
-                    publishDeployRecord environment: "STAGING", appUrl: "http://staging-${IBM_CLOUD_DEVOPS_APP_NAME}.mybluemix.net", result:"SUCCESS"
+                    publishDeployRecord environment: "STAGING", result:"SUCCESS"
                 }
                 failure {
-                    publishDeployRecord environment: "STAGING", appUrl: "http://staging-${IBM_CLOUD_DEVOPS_APP_NAME}.mybluemix.net", result:"FAIL"
+                    publishDeployRecord environment: "STAGING", result:"FAIL"
                 }
             }
         }
@@ -84,13 +79,13 @@ pipeline {
                         echo "Deploying to Prod"
                     '''
             }
-            // post build section to use "publishDeployRecord" method to publish deploy record and notify OTC of stage status
+            // post build section to use "publishDeployRecord" method to publish deploy record
             post {
                 success {
-                    publishDeployRecord environment: "PRODUCTION", appUrl: "http://prod-${IBM_CLOUD_DEVOPS_APP_NAME}.mybluemix.net", result:"SUCCESS"
+                    publishDeployRecord environment: "PRODUCTION", result:"SUCCESS"
                 }
                 failure {
-                    publishDeployRecord environment: "PRODUCTION", appUrl: "http://prod-${IBM_CLOUD_DEVOPS_APP_NAME}.mybluemix.net", result:"FAIL"
+                    publishDeployRecord environment: "PRODUCTION", result:"FAIL"
                 }
             }
         }
