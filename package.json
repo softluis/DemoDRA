@@ -2,6 +2,9 @@
   "name": "WReport",
   "version": "0.0.1",
   "description": "Weather Report",
+  "scripts": {
+    "start": "node app.js"
+  },
   "private": true,
   "dependencies": {
     "body-parser": "*",
