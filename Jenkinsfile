@@ -10,10 +10,12 @@ pipeline {
     agent any
     environment {
         // You need to specify 4 required environment variables first, they are going to be used for the following IBM Cloud DevOps steps
-        IBM_CLOUD_DEVOPS_API_KEY = credentials('BLUEMIX_CREDENTIAL_ID_PLACEHOLDER')
-        IBM_CLOUD_DEVOPS_ORG = 'ORG_NAME_PLACEHOLDER'
+        IBM_CLOUD_DEVOPS_API_KEY = credentials('IBM_CLOUD_DEVOPS_API_KEY')
         IBM_CLOUD_DEVOPS_APP_NAME = 'DevOps-Insight-Sample-App'
-        IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = 'TOOLCHAIN_ID_PLACEHOLDER'
+        IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = '91c65998-025d-4882-b877-a4404dd3ef10'
+    }
+    tools {
+        nodejs 'recent'
     }
     stages {
         stage('Build') {
@@ -24,7 +26,9 @@ pipeline {
                 GIT_REPO = 'https://github.com/xunrongli-ibm/DemoDRA/'
             }
             steps {
-                echo "building"
+                sh 'npm --version'
+                sh 'npm install'
+                sh 'grunt dev-setup --no-color'
             }
             // post build section to use "publishBuildRecord" method to publish build record
             post {
@@ -39,6 +43,7 @@ pipeline {
         stage('Unit Test and Code Coverage') {
             steps {
                 echo "unit testing and code coverage"
+                sh 'grunt dev-test-cov --no-color -f'
             }
             // post build section to use "publishTestResult" method to publish test result
             post {
@@ -66,12 +71,12 @@ pipeline {
                 }
             }
         }
-        stage('Gate') {
-            steps {
+        //stage('Gate') {
+        //    steps {
                 // use "evaluateGate" method to leverage IBM Cloud DevOps gate
-                evaluateGate policy: 'POLICY_NAME_PLACEHOLDER', forceDecision: 'true'
-            }
-        }
+        //        evaluateGate policy: 'POLICY_NAME_PLACEHOLDER', forceDecision: 'true'
+        //    }
+        //}
         stage('Deploy to Prod') {
             steps {
                 // Push the Weather App to Bluemix, production space
