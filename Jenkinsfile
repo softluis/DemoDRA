@@ -11,7 +11,6 @@ pipeline {
     environment {
         // You need to specify 4 required environment variables first, they are going to be used for the following IBM Cloud DevOps steps
         IBM_CLOUD_DEVOPS_API_KEY = credentials('BLUEMIX_CREDENTIAL_ID_PLACEHOLDER')
-        IBM_CLOUD_DEVOPS_ORG = 'ORG_NAME_PLACEHOLDER'
         IBM_CLOUD_DEVOPS_APP_NAME = 'DevOps-Insight-Sample-App'
         IBM_CLOUD_DEVOPS_TOOLCHAIN_ID = 'TOOLCHAIN_ID_PLACEHOLDER'
     }
