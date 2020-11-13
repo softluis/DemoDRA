@@ -25,12 +25,5 @@ pipeline {
                 echo "Hello, WS3! "
             }
         }
-         stage ('Invoke_pipeline2') {
-            steps {
-                build job: 'pipeline2',propagate: true, wait: true, parameters: [
-                string(name: 'WS3', value: "test_param")
-                ]
-            }
-        }
     }
 }
